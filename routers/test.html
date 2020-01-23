@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script>
+       $(document).ready(function(){
+     //현재HTML문서가 브라우저에 로딩이 끝났다면   
+     if($("div").css("display") == "none"){   
+        $('#showBt').click(function(){
+           $("div").hide();
+       }else {
+           $("div").show(); 
+       }
+        )});
+    
+    </script>
+<body>
+  <div>안녕, jQuery~</div>
+   <button id="showBt">토글 버튼</button>
+ 
+</body>
+</html>
+[출처] button 숨기기 보이기|작성자 Hellojjong
+
