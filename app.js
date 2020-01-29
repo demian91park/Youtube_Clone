@@ -12,7 +12,7 @@ const app = express();
 
 
 // respond with "hello world" when a GET request is made to the homepage
-
+app.set('view engine', 'pug');
 app.use(cookieparser());
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
