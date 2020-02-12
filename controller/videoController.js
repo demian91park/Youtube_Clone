@@ -3,18 +3,26 @@ import routes from "../routes";
 import Video from "../models/Videos";
 export const home = async(req, res) => {
   try{
-  const videos = await Video.find({}); // async후 await주면 다음 문장 실행때 까지 기다려줌
+  const videos = await Video.find({}).sort({'_id': -1}); // async후 await주면 다음 문장 실행때 까지 기다려줌
   res.render("home", { pageTitle: "Home", videos });
   } catch(error){
     console.log(error);
     res.render("home", { pageTitle: "Home", videos: [] });
   }
 };
-export const search = (req, res) => {
+export const search = async(req, res) => {
     const {
       query: { term: searchingBy }
     } = req;
-    res.render("search", { pageTitle: "Search", searchingBy, videos });
+    let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
   };
   
 export const getUpload = (req,res) => res.render("upload",{ pageTitle: "upload"});
@@ -99,8 +107,9 @@ export const deleteVideo = async(req, res) => {
 
   try{
     await Video.findOneAndRemove({_id: id});
+                                                        
   } catch(error){
-    
+    console.log(error);
     res.redirect(routes.home);
   }
 };
